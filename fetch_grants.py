@@ -15,7 +15,7 @@ for page in range(1, 6):
     items = data.get("data", [])
     if not items: break
     for it in items:
-        text = f"{it.get('biz_pbanc_nm','')}} {it.get('supt_biz_clsfc','')}} {it.get('intg_pbanc_biz_nm','')}}".lower()
+        text = f"{it.get('biz_pbanc_nm','')} {it.get('supt_biz_clsfc','')} {it.get('intg_pbanc_biz_nm','')}".lower()
         if any(k in text for k in AI_KW):
             rows.append({
                 "공고명": it.get("biz_pbanc_nm"), 
