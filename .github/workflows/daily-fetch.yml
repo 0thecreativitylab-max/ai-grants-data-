@@ -1,23 +1,23 @@
 name: Daily AI Grants Fetch
-  on:
-    schedule:
-      - cron: '0 21 * * *'
-    workflow_dispatch:
-  permissions:
-    contents: write
-  jobs:
-    fetch:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - name: Fetch grants
-          env:
-            DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
-          run: python3 fetch_grants.py
-        - name: Commit
-          run: |
-            git config user.name "github-actions"
-            git config user.email "actions@github.com"
-            git add grants.json
-            git commit -m "Update grants.json" || echo "no changes"
-            git push
+on:
+  schedule:
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch grants
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: python3 fetch_grants.py
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add grants.json
+          git commit -m "Update grants.json" || echo "no changes"
+          git push
